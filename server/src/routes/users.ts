@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import data from '../../data.json';
 
-type T = {
+type User = {
 
     id: string;
     firstName: string;
@@ -20,7 +20,7 @@ type T = {
 //SENDS ALL MEMBERS
 router.get("/", (req, res) => {
 
-    res.json(data);
+    res.status(200).json(data);
 
 });
 
@@ -32,14 +32,15 @@ router.get("/:id", (req, res) => {
         res.status(200).json(data.filter(data => data.id === id))
     }
     else
-        res.status(400).json({ message: `No Member with Member ID ${id} Found` });
+        res.status(410).json({ message: `No Member with Member ID ${id} Found` });
+         //410 - The resource the client wants to access has been permanently erased.
 
 })
 
 //ADD MEMBER
 router.post("/", (req, res) => {
 
-    const newMember: T = {
+    const newMember: User = {
         id: uuidv4(),
         firstName: req.body.firstName,
         middleName: req.body.middleName,
@@ -60,7 +61,7 @@ router.post("/", (req, res) => {
 
     else {
         data.push(newMember);
-        res.status(200).json({ message: `Member Successfully Added !`, "New Member": newMember });
+        res.status(201).json({ message: `Member Successfully Added !`, "New Member": newMember });
     }
 
 
@@ -88,7 +89,8 @@ router.put('/:id', (req, res) => {
         })
     }
     else {
-        res.status(400).json({ message: `No Member with Member ID ${id} Found` });
+        //410 - The resource the client wants to access has been permanently erased.
+        res.status(410).json({ message: `No Member with Member ID ${id} Found` });
     }
 })
 
