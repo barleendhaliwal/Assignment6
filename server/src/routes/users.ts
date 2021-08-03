@@ -95,10 +95,6 @@ router.put('/:id', (req, res) => {
 //DELETE MEMBER
 router.delete('/:id', (req, res) => {
     let id = req.params.id;
-    // console.log(id);
-    // for (let i=0; i < data.length; i++) {
-    //     console.log(data[i].id)
-    // }
     if (data.some(data => data.id === id)) {
 
         let index = 0;
