@@ -32,8 +32,8 @@ router.get("/:id", (req, res) => {
         res.status(200).json(data.filter(data => data.id === id))
     }
     else
-        res.status(410).json({ message: `No Member with Member ID ${id} Found` });
-         //410 - The resource the client wants to access has been permanently erased.
+        res.status(404).json({ message: `No Member with Member ID ${id} Found` });
+         //404 - not found
 
 })
 
@@ -89,8 +89,8 @@ router.put('/:id', (req, res) => {
         })
     }
     else {
-        //410 - The resource the client wants to access has been permanently erased.
-        res.status(410).json({ message: `No Member with Member ID ${id} Found` });
+        
+        res.status(404).json({ message: `No Member with Member ID ${id} Found` });
     }
 })
 
@@ -110,7 +110,7 @@ router.delete('/:id', (req, res) => {
         console.log(id);
     }
     else {
-        res.status(400).json({ message: `No Member with Member ID ${id} Found` });
+        res.status(404).json({ message: `No Member with Member ID ${id} Found` });
     }
 
 
