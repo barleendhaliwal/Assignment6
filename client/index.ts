@@ -1,5 +1,6 @@
 // import dotenv from 'dotenv';
 // dotenv.config();
+const baseUrl='http://localhost:9000/users'
 enum Role { SUPERADMIN, ADMIN, SUBSCRIBER };
 interface User {
     id: string;
@@ -64,7 +65,7 @@ class Crud<T> {
 
 async function getUsers() {
 
-    let response = await fetch('http://localhost:9000/users');
+    let response = await fetch(baseUrl);
     let users = await response.json() as User[];
 
     return users; // same as Promise.resolve(users)
@@ -72,7 +73,7 @@ async function getUsers() {
 }
 async function deleteUser(id: string) {
 
-    let response = await fetch(`http://localhost:9000/users/${id}`, {
+    let response = await fetch(baseUrl+id, {
         method: 'DELETE'
     })
     let data = await response.json()
@@ -82,7 +83,7 @@ async function deleteUser(id: string) {
 }
 async function editUser<T>(id: string, object: T) {
 
-    let response = await fetch(`http://localhost:9000/users/${id}`, {
+    let response = await fetch(baseUrl+id, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
